@@ -1,3 +1,13 @@
 .link-list {
-  list-style-type: none;
+  list-style: none;
+  padding: 0;
+}
+
+.link-list li {
+  display: inline; /* or display: inline-block; for better control */
+  margin-right: 20px; /* Adjust the spacing between items as needed */
+}
+
+.link-list li:last-child {
+  margin-right: 0; /* Remove the margin from the last item to avoid extra spacing */
 }

@@ -1,0 +1,11 @@
+.temp-button-selected {
+  background-color: rgb(198, 202, 206);
+  color: black;
+  border-radius: 0%;
+}
+
+.temp-button-deselected {
+  background-color: rgb(115, 115, 115);
+  color: black;
+  border-radius: 0%;
+}

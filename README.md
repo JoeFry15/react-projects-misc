@@ -1,6 +1,6 @@
 # Miscellaneous React Projects
 
-A collection of React projects within an overarching React website
+A collection of React projects within an overarching React website.
 
 ## To Run
 
