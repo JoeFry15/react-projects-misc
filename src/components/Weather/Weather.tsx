@@ -56,7 +56,7 @@ export function Weather() {
         °C
       </button>
       <h3>Enter location</h3>
-      <form onSubmit={handleSubmit}>
+      <form className="location-form" onSubmit={handleSubmit}>
         <label>
           <input type="text" value={inputValue} onChange={handleChange} />
         </label>

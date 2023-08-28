@@ -15,6 +15,9 @@ export function Layout() {
           <li>
             <Link to="/weather">Weather</Link>
           </li>
+          <li>
+            <Link to="/website-checker">Website Checker</Link>
+          </li>
         </ul>
       </nav>
 
