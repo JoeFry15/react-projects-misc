@@ -6,7 +6,17 @@ export function Weather() {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [location, setLocation] = useState<string>("London");
   const [inputValue, setInputValue] = useState<string>("");
-  const [tempUnit, setTempUnit] = useState<number>(1);
+  const [tempUnit, setTempUnit] = useState<number>(() => {
+    const storedTempSetting = localStorage.getItem("tempSetting");
+    return storedTempSetting === "Fahrenheit" ? 0 : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "tempSetting",
+      tempUnit === 0 ? "Fahrenheit" : "Celsius"
+    );
+  }, [tempUnit]);
 
   useEffect(() => {
     fetchWeatherByLocation(location).then((response) => {
