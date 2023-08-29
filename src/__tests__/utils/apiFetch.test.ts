@@ -13,6 +13,7 @@ test("expect weather API call to fetch correct location", async () => {
       name: "London",
     },
   };
+
   mockAxios
     .onGet(`${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`)
     .reply(200, mockResponseData);

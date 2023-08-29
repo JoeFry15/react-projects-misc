@@ -30,7 +30,8 @@ export function WebsiteChecker() {
       <h1>Website Checker</h1>
       <p>
         A page designed to check whether a website is loading successfully, by
-        checking against a response stored in local data on initial render.
+        checking new requests against a response stored in local data on initial
+        render.
       </p>
       <p>
         Currently checking: <a href={urlToCheck}>{urlToCheck}</a>
