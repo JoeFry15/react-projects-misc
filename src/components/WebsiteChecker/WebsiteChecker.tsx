@@ -2,17 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { stringSimilarity } from "string-similarity-js";
 import "./WebsiteChecker.css";
+import { fetchWebsiteForChecker } from "../../clients/apiClient";
 
 export function WebsiteChecker() {
   const [similarity, setSimilarity] = useState<number | null>(null);
 
-  const urlToCheck = `http://api.weatherapi.com/v1/current.json?key=${
-    import.meta.env.VITE_WEATHER_KEY
-  }&q=London&aqi=no`;
+  const weatherApiUrl = "http://api.weatherapi.com/v1";
+  const weatherApiKey = import.meta.env.VITE_WEATHER_KEY;
+  const urlToCheck = `${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`;
 
   useEffect(() => {
-    axios.get(urlToCheck).then((response) => {
-      console.log(response.data);
+    fetchWebsiteForChecker(urlToCheck).then((response) => {
       localStorage.setItem("apiResponse", JSON.stringify(response.data));
     });
   }, []);
@@ -46,9 +46,9 @@ export function WebsiteChecker() {
 
 async function checkSite(url: string): Promise<number> {
   const storedDataString = localStorage.getItem("apiResponse");
-  const currentDataString = await axios
-    .get(url)
-    .then((response) => JSON.stringify(response.data));
+  const currentDataString = await fetchWebsiteForChecker(url).then((response) =>
+    JSON.stringify(response.data)
+  );
   if (storedDataString !== null) {
     return Promise.resolve(
       stringSimilarity(storedDataString, currentDataString) * 100

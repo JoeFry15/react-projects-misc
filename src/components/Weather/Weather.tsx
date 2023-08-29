@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Weather.css";
-import axios from "axios";
+import { fetchWeatherByLocation } from "../../clients/apiClient";
 
 export function Weather() {
   const [weatherData, setWeatherData] = useState<any>(null);
@@ -8,12 +8,8 @@ export function Weather() {
   const [inputValue, setInputValue] = useState<string>("");
   const [tempUnit, setTempUnit] = useState<number>(1);
 
-  const url = `http://api.weatherapi.com/v1/current.json?key=${
-    import.meta.env.VITE_WEATHER_KEY
-  }&q=${location}&aqi=no`;
-
   useEffect(() => {
-    axios(url).then((response) => {
+    fetchWeatherByLocation(location).then((response) => {
       setWeatherData(response.data);
     });
   }, [location]);
