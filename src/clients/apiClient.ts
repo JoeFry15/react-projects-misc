@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const weatherApiUrl = "http://api.weatherapi.com/v1";
-const weatherApiKey = import.meta.env.VITE_WEATHER_KEY;
+const weatherApiKey = process.env.API_KEY;
 
 export async function fetchWeatherByLocation(location: string): Promise<any> {
   const response = await axios(
@@ -19,6 +19,7 @@ export async function fetchWebsiteForChecker(url: string): Promise<any> {
   if (response.status !== 200) {
     throw new Error(await JSON.stringify(response));
   } else {
+    console.log(response);
     return response;
   }
 }

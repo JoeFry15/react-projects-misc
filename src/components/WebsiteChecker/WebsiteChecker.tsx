@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { stringSimilarity } from "string-similarity-js";
 import "./WebsiteChecker.css";
@@ -8,7 +7,7 @@ export function WebsiteChecker() {
   const [similarity, setSimilarity] = useState<number | null>(null);
 
   const weatherApiUrl = "http://api.weatherapi.com/v1";
-  const weatherApiKey = import.meta.env.VITE_WEATHER_KEY;
+  const weatherApiKey = process.env.API_KEY;
   const urlToCheck = `${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`;
 
   useEffect(() => {
