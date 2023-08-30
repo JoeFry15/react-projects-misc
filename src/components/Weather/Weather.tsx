@@ -2,19 +2,26 @@ import { useEffect, useState } from "react";
 import "./Weather.css";
 import { fetchWeatherByLocation } from "../../clients/apiClient";
 
+enum TemperatureUnit {
+  Celsius = 1,
+  Fahrenheit = 0,
+}
+
 export function Weather() {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [location, setLocation] = useState<string>("London");
   const [inputValue, setInputValue] = useState<string>("");
   const [tempUnit, setTempUnit] = useState<number>(() => {
     const storedTempSetting = localStorage.getItem("tempSetting");
-    return storedTempSetting === "Fahrenheit" ? 0 : 1;
+    return storedTempSetting === "Fahrenheit"
+      ? TemperatureUnit.Fahrenheit
+      : TemperatureUnit.Celsius;
   });
 
   useEffect(() => {
     localStorage.setItem(
       "tempSetting",
-      tempUnit === 0 ? "Fahrenheit" : "Celsius"
+      tempUnit === TemperatureUnit.Fahrenheit ? "Fahrenheit" : "Celsius"
     );
   }, [tempUnit]);
 
@@ -51,13 +58,13 @@ export function Weather() {
       )}
       <button
         className={tempUnit ? "temp-button-deselected" : "temp-button-selected"}
-        onClick={() => setTempUnit(0)}
+        onClick={() => setTempUnit(TemperatureUnit.Fahrenheit)}
       >
         °F
       </button>
       <button
         className={tempUnit ? "temp-button-selected" : "temp-button-deselected"}
-        onClick={() => setTempUnit(1)}
+        onClick={() => setTempUnit(TemperatureUnit.Celsius)}
       >
         °C
       </button>

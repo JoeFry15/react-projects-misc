@@ -4,22 +4,46 @@ import MockAdapter from "axios-mock-adapter";
 
 const mockAxios = new MockAdapter(axios);
 
-test("expect weather API call to fetch correct location", async () => {
-  const weatherApiUrl = "http://api.weatherapi.com/v1";
-  const weatherApiKey = process.env.API_KEY;
+describe("Weather API Tests", () => {
+  test("expect weather API call to fetch correct location", async () => {
+    const weatherApiUrl = "http://api.weatherapi.com/v1";
+    const weatherApiKey = process.env.API_KEY;
 
-  const mockResponseData = {
-    location: {
-      name: "London",
-    },
-  };
+    const mockResponseData = {
+      location: {
+        name: "London",
+      },
+    };
 
-  mockAxios
-    .onGet(`${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`)
-    .reply(200, mockResponseData);
+    mockAxios
+      .onGet(
+        `${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`
+      )
+      .reply(200, mockResponseData);
 
-  const response = await fetchWeatherByLocation("London");
+    const response = await fetchWeatherByLocation("London");
 
-  expect(response.data.location.name).toBe("London");
-  expect(response.status).toBe(200);
+    expect(response.data.location.name).toBe("London");
+    expect(response.status).toBe(200);
+  });
+
+  test("expect weather API bad status to throw error", async () => {
+    const weatherApiUrl = "http://api.weatherapi.com/v1";
+    const weatherApiKey = process.env.API_KEY;
+
+    const mockResponseData = {};
+
+    mockAxios
+      .onGet(
+        `${weatherApiUrl}/current.json?key=${weatherApiKey}&q=London&aqi=no`
+      )
+      .reply(404, mockResponseData);
+
+    try {
+      await fetchWeatherByLocation("London");
+      fail("Expected fetchWeatherByLocation to throw an error");
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
+  });
 });
